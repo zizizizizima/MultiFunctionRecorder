@@ -31,7 +31,10 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#ifndef __GUI_H
+#define __GUI_H
 #include "GUI.H" 
+#endif
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -57,10 +60,38 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define K2_Pin GPIO_PIN_2
+#define K2_GPIO_Port GPIOE
+#define K3_Pin GPIO_PIN_3
+#define K3_GPIO_Port GPIOE
+#define K4_Pin GPIO_PIN_4
+#define K4_GPIO_Port GPIOE
+#define K5_Pin GPIO_PIN_5
+#define K5_GPIO_Port GPIOE
+#define K6_Pin GPIO_PIN_6
+#define K6_GPIO_Port GPIOE
+#define L1_Pin GPIO_PIN_8
+#define L1_GPIO_Port GPIOE
+#define L2_Pin GPIO_PIN_9
+#define L2_GPIO_Port GPIOE
+#define L3_Pin GPIO_PIN_10
+#define L3_GPIO_Port GPIOE
+#define L4_Pin GPIO_PIN_11
+#define L4_GPIO_Port GPIOE
+#define L5_Pin GPIO_PIN_12
+#define L5_GPIO_Port GPIOE
+#define L6_Pin GPIO_PIN_13
+#define L6_GPIO_Port GPIOE
+#define L7_Pin GPIO_PIN_14
+#define L7_GPIO_Port GPIOE
+#define L8_Pin GPIO_PIN_15
+#define L8_GPIO_Port GPIOE
 #define I2C_SCL_Pin GPIO_PIN_6
 #define I2C_SCL_GPIO_Port GPIOB
 #define I2C_SDA_Pin GPIO_PIN_7
 #define I2C_SDA_GPIO_Port GPIOB
+#define K1_Pin GPIO_PIN_1
+#define K1_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 

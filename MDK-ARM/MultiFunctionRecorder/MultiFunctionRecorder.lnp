@@ -1,12 +1,12 @@
 --cpu=Cortex-M4.fp.sp
 "multifunctionrecorder\startup_stm32f407xx.o"
+"multifunctionrecorder\simsun_16.o"
 "multifunctionrecorder\main.o"
 "multifunctionrecorder\gpio.o"
 "multifunctionrecorder\freertos.o"
 "multifunctionrecorder\stm32f4xx_it.o"
 "multifunctionrecorder\stm32f4xx_hal_msp.o"
 "multifunctionrecorder\stm32f4xx_hal_timebase_tim.o"
-"multifunctionrecorder\simsun_16.o"
 "multifunctionrecorder\stm32f4xx_hal_rcc.o"
 "multifunctionrecorder\stm32f4xx_hal_rcc_ex.o"
 "multifunctionrecorder\stm32f4xx_hal_flash.o"
@@ -37,6 +37,12 @@
 "multifunctionrecorder\guislim.o"
 "multifunctionrecorder\ssd1306.o"
 "multifunctionrecorder\ssd1306_i2c.o"
+"multifunctionrecorder\user_diskio.o"
+"multifunctionrecorder\fatfs.o"
+"multifunctionrecorder\diskio.o"
+"multifunctionrecorder\ff.o"
+"multifunctionrecorder\ff_gen_drv.o"
+"multifunctionrecorder\syscall.o"
 --library_type=microlib --strict --scatter "MultiFunctionRecorder\MultiFunctionRecorder.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

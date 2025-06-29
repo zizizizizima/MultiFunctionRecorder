@@ -32,8 +32,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-//------------------------------GUI相关------------------------------//
+//------------------------------GUI相关>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN} GUI_STATE;	 // 用枚举类型表示UI界面状态
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUI相关------------------------------//
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -48,8 +49,10 @@ typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN} GUI_STATE;	 // 用枚举类型表示UI界面
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+//------------------------------GUI相关------------------------------//
 GUI_STATE GUI_Sta_Cur = GUI_TITLE;// 当前UI界面
 GUI_STATE GUI_Sta_Next = GUI_INFO; // 待进入的UI界面
+//------------------------------GUI相关------------------------------//
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -191,6 +194,61 @@ void StartKeyTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+		 uint8_t key = ScanKey(); // 扫描按键键码
+    if (key > 0) { // 有按键按下
+      while (ScanKey() > 0); // 等待按键放开，防止按键连按
+      osThreadFlagsSet(defaultTaskHandle, key); // 向默认任务发送key通知
+    }
+//    switch (key) {
+//			default:        break;
+//			//主菜单选择
+//			case K1_Pin:  if (GUI_MAIN == g_sta)
+//										{
+//											if(g_sta_select < GUI_LED)	g_sta_select = GUI_LED;
+//											else {	g_sta_select--; if(g_sta_select < GUI_LED) g_sta_select = GUI_LEDPARAM_SET;}
+//										}else if(GUI_LEDPARAM_SET == g_sta)
+//										{
+//											if(g_sta_select < GUI_LEDSPEED)	g_sta_select = GUI_LEDSPEED;
+//											else {	g_sta_select--; if(g_sta_select < GUI_LEDSPEED) g_sta_select = GUI_LEDDIR;}
+//										}
+//										break;
+//			case K4_Pin:  if (GUI_MAIN == g_sta) 
+//										{	
+//											if(g_sta_select < GUI_LED)	g_sta_select = GUI_LED;
+//											else {	g_sta_select++; if(g_sta_select > GUI_LEDPARAM_SET) g_sta_select = GUI_LED;}
+//										}else if(GUI_LEDPARAM_SET == g_sta)
+//										{
+//											if(g_sta_select < GUI_LEDSPEED)	g_sta_select = GUI_LEDSPEED;
+//											else {	g_sta_select++; if(g_sta_select > GUI_LEDDIR) g_sta_select = GUI_LEDSPEED;}
+//										}
+//										break;
+//			//调整流水灯参数按钮
+//			case K2_Pin:  if(GUI_LEDSPEED == g_sta)
+//										{ 
+//											if(speed < 1)	speed = 1;
+//											speed--;
+//										}else if(GUI_LEDDIR == g_sta)
+//										{
+//											dir = 0;//左←
+//										}
+//										break;
+//			case K3_Pin:	if(GUI_LEDSPEED == g_sta)
+//										{
+//											speed++;
+//											if(speed > 9)	speed = 1;
+//										}else if(GUI_LEDDIR == g_sta)
+//										{
+//											dir = 1;//右
+//										}
+//										break;
+//			//确定按钮
+//			case K5_Pin:  g_sta = g_sta_select;break;
+//			//返回按钮
+//			case K6_Pin:  if (GUI_MAIN == g_sta) g_sta = GUI_LOGO;
+//										else if(GUI_LEDDIR == g_sta)		 g_sta = GUI_LEDPARAM_SET;
+//										else if(GUI_LEDSPEED == g_sta)	 g_sta = GUI_LEDPARAM_SET;
+//										else g_sta = GUI_MAIN;
+//										break;
     osDelay(1);
   }
   /* USER CODE END StartKeyTask */
@@ -198,6 +256,11 @@ void StartKeyTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+//----------------------------GUI不同界面相关显示函数>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+* @brief Function for 显示选题名称（？
+* @param argument: Not used
+* @retval None
+*/
 void UITitle(void)
 {
 	static uint32_t tick_title = 0; // 定义静态变量，存储进入界面时的时间戳
@@ -215,14 +278,21 @@ void UITitle(void)
 	 }
 };
 
+/**
+* @brief Function for 显示姓名学号
+* @param argument: Not used
+* @retval None
+*/
 void UIInfo(void)
 {
 	static uint32_t tick_info = 0; // 定义静态变量，存储进入界面时的时间戳
 	if (0 == tick_info) tick_info = osKernelGetTickCount(); // 开始进入界面时，记录时间戳
 	
 	GUI_Clear();	// 屏幕内容清空
-	GUI_DispStringHCenterAt("施韵芝", 64, 0);	// 屏幕正上方居中显示标题
-	GUI_DispStringHCenterAt("王欣怡", 64, 32);	// 屏幕正上方居中显示标题
+	GUI_DispStringHCenterAt("施韵芝", 64, 0);	// 屏幕居中显示姓名
+	GUI_DispStringHCenterAt("22041304", 64, 16);// 屏幕居中显示姓名
+	GUI_DispStringHCenterAt("王欣怡", 64, 32);	
+	GUI_DispStringHCenterAt("2204xxxx", 64, 48);
 	GUI_Update();	// 刷新屏幕显示
  
 	// 如果当前时间已经超过进入时间3秒
@@ -233,7 +303,11 @@ void UIInfo(void)
 	 }
 };
 
-
+/**
+* @brief Function for 主菜单
+* @param argument: Not used
+* @retval None
+*/
 void UIMain(void)
 {
 	GUI_Clear();	// 屏幕内容清空
@@ -241,5 +315,6 @@ void UIMain(void)
 	GUI_Update();	// 刷新屏幕显示
 
 };
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUI不同界面相关显示函数------------------------------//
 /* USER CODE END Application */
 

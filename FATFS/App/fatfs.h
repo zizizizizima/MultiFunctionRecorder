@@ -1,9 +1,8 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    gpio.h
-  * @brief   This file contains all the function prototypes for
-  *          the gpio.c file
+  * @file   fatfs.h
+  * @brief  Header for fatfs applications
   ******************************************************************************
   * @attention
   *
@@ -18,33 +17,31 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __GPIO_H__
-#define __GPIO_H__
-
+#ifndef __fatfs_H
+#define __fatfs_H
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
-/* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "ff.h"
+#include "ff_gen_drv.h"
+#include "user_diskio.h" /* defines USER_Driver as external */
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
-/* USER CODE BEGIN Private defines */
+extern uint8_t retUSER; /* Return value for USER */
+extern char USERPath[4]; /* USER logical drive path */
+extern FATFS USERFatFS; /* File system object for USER logical drive */
+extern FIL USERFile; /* File object for USER */
 
-/* USER CODE END Private defines */
-
-void MX_GPIO_Init(void);
+void MX_FATFS_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-uint8_t ScanKey(void);
-void SetLeds(uint8_t SetCode);
-/* USER CODE END Prototypes */
 
+/* USER CODE END Prototypes */
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ GPIO_H__ */
-
+#endif /*__fatfs_H */

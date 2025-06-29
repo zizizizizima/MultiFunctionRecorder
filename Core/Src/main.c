@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "fatfs.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -88,8 +89,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-
+	SetLeds(0x00);
   /* USER CODE END 2 */
 
   /* Init scheduler */

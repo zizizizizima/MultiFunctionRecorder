@@ -1,4 +1,8 @@
-multifunctionrecorder/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
+multifunctionrecorder/syscall.o: \
+  ..\Middlewares\Third_Party\FatFs\src\option\syscall.c \
+  ..\Middlewares\Third_Party\FatFs\src\option\..\ff.h \
+  ..\Middlewares\Third_Party\FatFs\src\integer.h \
+  ..\FATFS\Target\ffconf.h ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -41,10 +45,4 @@ multifunctionrecorder/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\FATFS\App\fatfs.h ..\Middlewares\Third_Party\FatFs\src\ff.h \
-  ..\Middlewares\Third_Party\FatFs\src\integer.h \
-  ..\FATFS\Target\ffconf.h \
-  ..\Middlewares\Third_Party\FatFs\src\ff_gen_drv.h \
-  ..\Middlewares\Third_Party\FatFs\src\diskio.h \
-  ..\FATFS\Target\user_diskio.h ..\Core\Inc\gpio.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h

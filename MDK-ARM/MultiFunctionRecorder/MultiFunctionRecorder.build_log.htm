@@ -22,12 +22,43 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Users\86139\Desktop\2025ShortTerm2\MultiFunctionRecorder\MDK-ARM\MultiFunctionRecorder.uvprojx
-Project File Date:  06/28/2025
+Project File Date:  06/29/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'MultiFunctionRecorder'
-"MultiFunctionRecorder\MultiFunctionRecorder.axf" - 0 Error(s), 0 Warning(s).
+../Core/Src/freertos.c(265): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+        GUI_DispStringHCenterAt("ѡ<CC><E2><C3><FB><B3><C6>", 64, 0);     // <C6><C1>Ļ<D5><FD><C9>Ϸ<BD><BE><D3><D6><D0><CF><D4>ʾ<B1><EA><CC><E2>
+                                  ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c(282): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+        GUI_DispStringHCenterAt("ʩ<D4><CF>֥", 64, 0);       // <C6><C1>Ļ<BE><D3><D6><D0><CF><D4>ʾ<D0><D5><C3><FB>
+                                  ^~~~~~~~
+../Core/Src/freertos.c(284): warning: illegal character encoding in string literal [-Winvalid-source-encoding]
+        GUI_DispStringHCenterAt("<CD><F5><D0><C0><E2><F9>", 64, 32);      
+                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+compiling freertos.c...
+compiling stm32f4xx_hal_msp.c...
+compiling stm32f4xx_it.c...
+compiling ssd1306_i2c.c...
+compiling main.c...
+../Core/Src/gpio.c(121): warning: non-void function does not return a value in all control paths [-Wreturn-type]
+}
+^
+1 warning generated.
+compiling gpio.c...
+compiling ssd1306.c...
+compiling fatfs.c...
+compiling diskio.c...
+compiling user_diskio.c...
+compiling GUISlim.c...
+compiling syscall.c...
+compiling ff_gen_drv.c...
+compiling ff.c...
+linking...
+Program Size: Code=18278 RO-data=5838 RW-data=40 ZI-data=20984  
+FromELF: creating hex file...
+"MultiFunctionRecorder\MultiFunctionRecorder.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -51,7 +82,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:09
 </pre>
 </body>
 </html>
