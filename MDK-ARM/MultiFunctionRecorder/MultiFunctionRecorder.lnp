@@ -1,4 +1,4 @@
---cpu Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 ".\multifunctionrecorder\startup_stm32f407xx.o"
 ".\multifunctionrecorder\simsun_16.o"
 ".\multifunctionrecorder\main.o"
@@ -7,6 +7,8 @@
 ".\multifunctionrecorder\stm32f4xx_it.o"
 ".\multifunctionrecorder\stm32f4xx_hal_msp.o"
 ".\multifunctionrecorder\stm32f4xx_hal_timebase_tim.o"
+".\multifunctionrecorder\stm32f4xx_hal_tim.o"
+".\multifunctionrecorder\stm32f4xx_hal_tim_ex.o"
 ".\multifunctionrecorder\stm32f4xx_hal_rcc.o"
 ".\multifunctionrecorder\stm32f4xx_hal_rcc_ex.o"
 ".\multifunctionrecorder\stm32f4xx_hal_flash.o"
@@ -20,8 +22,6 @@
 ".\multifunctionrecorder\stm32f4xx_hal_cortex.o"
 ".\multifunctionrecorder\stm32f4xx_hal.o"
 ".\multifunctionrecorder\stm32f4xx_hal_exti.o"
-".\multifunctionrecorder\stm32f4xx_hal_tim.o"
-".\multifunctionrecorder\stm32f4xx_hal_tim_ex.o"
 ".\multifunctionrecorder\system_stm32f4xx.o"
 ".\multifunctionrecorder\croutine.o"
 ".\multifunctionrecorder\event_groups.o"
@@ -44,6 +44,6 @@
 ".\multifunctionrecorder\ff_gen_drv.o"
 ".\multifunctionrecorder\syscall.o"
 --library_type=microlib --strict --scatter ".\MultiFunctionRecorder\MultiFunctionRecorder.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "MultiFunctionRecorder.map" -o .\MultiFunctionRecorder\MultiFunctionRecorder.axf

@@ -57,20 +57,20 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, I2C_SCL_Pin|I2C_SDA_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PEPin PEPin PEPin PEPin */
+  /*Configure GPIO pins : K2_Pin K3_Pin K4_Pin K1_Pin */
   GPIO_InitStruct.Pin = K2_Pin|K3_Pin|K4_Pin|K1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PEPin PEPin */
+  /*Configure GPIO pins : K5_Pin K6_Pin */
   GPIO_InitStruct.Pin = K5_Pin|K6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PEPin PEPin PEPin PEPin
-                           PEPin PEPin PEPin PEPin */
+  /*Configure GPIO pins : L1_Pin L2_Pin L3_Pin L4_Pin
+                           L5_Pin L6_Pin L7_Pin L8_Pin */
   GPIO_InitStruct.Pin = L1_Pin|L2_Pin|L3_Pin|L4_Pin
                           |L5_Pin|L6_Pin|L7_Pin|L8_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -78,7 +78,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin */
+  /*Configure GPIO pins : I2C_SCL_Pin I2C_SDA_Pin */
   GPIO_InitStruct.Pin = I2C_SCL_Pin|I2C_SDA_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -95,7 +95,7 @@ void MX_GPIO_Init(void)
 */
 uint8_t ScanKey(void) 
 {
-	uint8_t key = 0;// °´¼ü°´ÏÂÊ±£¬K1¡«K4µÍµçÆ½ÓÐÐ§£¬K5¡¢K6¸ßµçÆ½ÓÐÐ§
+	uint8_t key = 0;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½K1ï¿½ï¿½K4ï¿½Íµï¿½Æ½ï¿½ï¿½Ð§ï¿½ï¿½K5ï¿½ï¿½K6ï¿½ßµï¿½Æ½ï¿½ï¿½Ð§
 	if (HAL_GPIO_ReadPin(K1_GPIO_Port, K1_Pin) == GPIO_PIN_RESET)	key |= K1_Pin;
 	if (HAL_GPIO_ReadPin(K2_GPIO_Port, K2_Pin) == GPIO_PIN_RESET)	key |= K2_Pin;
 	if (HAL_GPIO_ReadPin(K3_GPIO_Port, K3_Pin) == GPIO_PIN_RESET)	key |= K3_Pin;
@@ -103,7 +103,7 @@ uint8_t ScanKey(void)
 	if (HAL_GPIO_ReadPin(K5_GPIO_Port, K5_Pin) == GPIO_PIN_SET)		key |= K5_Pin;
 	if (HAL_GPIO_ReadPin(K6_GPIO_Port, K6_Pin) == GPIO_PIN_SET)		key |= K6_Pin;
 	if (key > 0) { 
-		osDelay(10);	// °´¼üÑÓÊ±10ºÁÃëÏû¶¶
+		osDelay(10);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		uint8_t key2 = 0;
 		if (HAL_GPIO_ReadPin(K1_GPIO_Port, K1_Pin) == GPIO_PIN_RESET) key2 |= K1_Pin;
 		if (HAL_GPIO_ReadPin(K2_GPIO_Port, K2_Pin) == GPIO_PIN_RESET) key2 |= K2_Pin;
@@ -114,7 +114,7 @@ uint8_t ScanKey(void)
 		if (key == key2)
 		{
 			return key;
-		// ·µ»ØÓÐÐ§°´¼ü
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½
 		}
 		return 0;
 	}
@@ -124,7 +124,7 @@ uint8_t ScanKey(void)
 * @param argument: 8-bit code,1 represent light. xxxx_xxxx --> L1L2L3.....
 * @retval None
 */
-void SetLeds(uint8_t SetCode)//L1ÔÚ¸ßÎ»
+void SetLeds(uint8_t SetCode)//L1ï¿½Ú¸ï¿½Î»
 {
 	if((SetCode & 0x80) == 0x80) HAL_GPIO_WritePin(L1_GPIO_Port,L1_Pin,0); else HAL_GPIO_WritePin(L1_GPIO_Port,L1_Pin,1);
 	if((SetCode & 0x40) == 0x40) HAL_GPIO_WritePin(L2_GPIO_Port,L2_Pin,0); else HAL_GPIO_WritePin(L2_GPIO_Port,L2_Pin,1);

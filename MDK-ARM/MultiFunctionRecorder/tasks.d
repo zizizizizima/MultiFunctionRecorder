@@ -1,16 +1,17 @@
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-.\multifunctionrecorder\tasks.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stdlib.h
-.\multifunctionrecorder\tasks.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\string.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-.\multifunctionrecorder\tasks.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stddef.h
-.\multifunctionrecorder\tasks.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stdint.h
-.\multifunctionrecorder\tasks.o: ../Core/Inc/FreeRTOSConfig.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
-.\multifunctionrecorder\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h
+./multifunctionrecorder/tasks.o: \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\stack_macros.h

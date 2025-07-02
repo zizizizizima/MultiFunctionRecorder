@@ -32,9 +32,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-//------------------------------GUIÏà¹Ø>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN} GUI_STATE;	 // ÓÃÃ¶¾ÙÀàÐÍ±íÊ¾UI½çÃæ×´Ì¬
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUIÏà¹Ø------------------------------//
+//------------------------------GUIï¿½ï¿½ï¿½>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN} GUI_STATE;	 // ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½Ê¾UIï¿½ï¿½ï¿½ï¿½×´Ì¬
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUIï¿½ï¿½ï¿½------------------------------//
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -49,10 +49,10 @@ typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN} GUI_STATE;	 // ÓÃÃ¶¾ÙÀàÐÍ±íÊ¾UI½çÃæ
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-//------------------------------GUIÏà¹Ø------------------------------//
-GUI_STATE GUI_Sta_Cur = GUI_TITLE;// µ±Ç°UI½çÃæ
-GUI_STATE GUI_Sta_Next = GUI_INFO; // ´ý½øÈëµÄUI½çÃæ
-//------------------------------GUIÏà¹Ø------------------------------//
+//------------------------------GUIï¿½ï¿½ï¿½------------------------------//
+GUI_STATE GUI_Sta_Cur = GUI_TITLE;// ï¿½ï¿½Ç°UIï¿½ï¿½ï¿½ï¿½
+GUI_STATE GUI_Sta_Next = GUI_INFO; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
+//------------------------------GUIï¿½ï¿½ï¿½------------------------------//
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -165,14 +165,14 @@ void StartGUITask(void *argument)
 {
   /* USER CODE BEGIN StartGUITask */
   /* Infinite loop */
-  //-----OLED³õÊ¼»¯¡¢GUIÍ¼ÐÎ¿â³õÊ¼»¯---//
+  //-----OLEDï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½GUIÍ¼ï¿½Î¿ï¿½ï¿½Ê¼ï¿½ï¿½---//
 	GUI_Init();
 	GUI_SetFont(&GUI_FontHZ_SimSun_16);
   for(;;)
   { 
 		switch (GUI_Sta_Cur){
 			default:break;
-			// ¸ù¾Ýµ±Ç°ÏÔÊ¾×´Ì¬µ÷ÓÃ¶ÔÓ¦»æÍ¼º¯Êý
+			// ï¿½ï¿½ï¿½Ýµï¿½Ç°ï¿½ï¿½Ê¾×´Ì¬ï¿½ï¿½ï¿½Ã¶ï¿½Ó¦ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 			case GUI_TITLE: UITitle(); break;
 			case GUI_INFO: UIInfo();	break;
 			case GUI_MAIN: UIMain(); 	break;
@@ -195,14 +195,14 @@ void StartKeyTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-		 uint8_t key = ScanKey(); // É¨Ãè°´¼ü¼üÂë
-    if (key > 0) { // ÓÐ°´¼ü°´ÏÂ
-      while (ScanKey() > 0); // µÈ´ý°´¼ü·Å¿ª£¬·ÀÖ¹°´¼üÁ¬°´
-      osThreadFlagsSet(defaultTaskHandle, key); // ÏòÄ¬ÈÏÈÎÎñ·¢ËÍkeyÍ¨Öª
+		 uint8_t key = ScanKey(); // É¨ï¿½è°´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    if (key > 0) { // ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+      while (ScanKey() > 0); // ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+      osThreadFlagsSet(defaultTaskHandle, key); // ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½keyÍ¨Öª
     }
 //    switch (key) {
 //			default:        break;
-//			//Ö÷²Ëµ¥Ñ¡Ôñ
+//			//ï¿½ï¿½ï¿½Ëµï¿½Ñ¡ï¿½ï¿½
 //			case K1_Pin:  if (GUI_MAIN == g_sta)
 //										{
 //											if(g_sta_select < GUI_LED)	g_sta_select = GUI_LED;
@@ -223,14 +223,14 @@ void StartKeyTask(void *argument)
 //											else {	g_sta_select++; if(g_sta_select > GUI_LEDDIR) g_sta_select = GUI_LEDSPEED;}
 //										}
 //										break;
-//			//µ÷ÕûÁ÷Ë®µÆ²ÎÊý°´Å¥
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
 //			case K2_Pin:  if(GUI_LEDSPEED == g_sta)
 //										{ 
 //											if(speed < 1)	speed = 1;
 //											speed--;
 //										}else if(GUI_LEDDIR == g_sta)
 //										{
-//											dir = 0;//×ó¡û
+//											dir = 0;//ï¿½ï¿½ï¿½
 //										}
 //										break;
 //			case K3_Pin:	if(GUI_LEDSPEED == g_sta)
@@ -239,12 +239,12 @@ void StartKeyTask(void *argument)
 //											if(speed > 9)	speed = 1;
 //										}else if(GUI_LEDDIR == g_sta)
 //										{
-//											dir = 1;//ÓÒ
+//											dir = 1;//ï¿½ï¿½
 //										}
 //										break;
-//			//È·¶¨°´Å¥
+//			//È·ï¿½ï¿½ï¿½ï¿½Å¥
 //			case K5_Pin:  g_sta = g_sta_select;break;
-//			//·µ»Ø°´Å¥
+//			//ï¿½ï¿½ï¿½Ø°ï¿½Å¥
 //			case K6_Pin:  if (GUI_MAIN == g_sta) g_sta = GUI_LOGO;
 //										else if(GUI_LEDDIR == g_sta)		 g_sta = GUI_LEDPARAM_SET;
 //										else if(GUI_LEDSPEED == g_sta)	 g_sta = GUI_LEDPARAM_SET;
@@ -257,78 +257,79 @@ void StartKeyTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-//----------------------------GUI²»Í¬½çÃæÏà¹ØÏÔÊ¾º¯Êý>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-/** @brief Function for ÏÔÊ¾Ñ¡ÌâÃû³Æ
+//----------------------------GUIï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+/** @brief Function for ï¿½ï¿½Ê¾Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * @param argument: Not used
 * @retval None
 */
 void UITitle(void)
 {
-	static uint32_t tick_title = 0; // ¶¨Òå¾²Ì¬±äÁ¿£¬´æ´¢½øÈë½çÃæÊ±µÄÊ±¼ä´Á
-	if (0 == tick_title) tick_title = osKernelGetTickCount(); // ¿ªÊ¼½øÈë½çÃæÊ±£¬¼ÇÂ¼Ê±¼ä´Á
+	static uint32_t tick_title = 0; // ï¿½ï¿½ï¿½å¾²Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½ï¿½
+	if (0 == tick_title) tick_title = osKernelGetTickCount(); // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼Ê±ï¿½ï¿½ï¿½
 	
-	GUI_Clear();	// ÆÁÄ»ÄÚÈÝÇå¿Õ
-	GUI_DispStringHCenterAt("Ñ¡Ìâ", 64, 0);	// ÆÁÄ»ÕýÉÏ·½¾ÓÖÐÏÔÊ¾±êÌâ
-	GUI_Update();	// Ë¢ÐÂÆÁÄ»ÏÔÊ¾
+	GUI_Clear();	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GUI_DispStringHCenterAt("Ñ¡ï¿½ï¿½", 64, 0);	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+	GUI_Update();	// Ë¢ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¾
  
-	// Èç¹ûµ±Ç°Ê±¼äÒÑ¾­³¬¹ý½øÈëÊ±¼ä2Ãë
-	// ½çÃæ×´Ì¬Ìø×ªµ½³ÉÔ±ÐÅÏ¢½çÃæ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½2ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
 	if (osKernelGetTickCount() >= tick_title + 2000) {
 		GUI_Sta_Cur = GUI_INFO;
-		tick_title = 0;	// Ê±¼ä´ÁÇåÁã£¬ÒÔ±¸ÔÙ´Î½øÈë
+		tick_title = 0;	// Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½Ô±ï¿½ï¿½Ù´Î½ï¿½ï¿½ï¿½
 	 }
 };
 
 /**
-* @brief Function for ÏÔÊ¾ÐÕÃûÑ§ºÅ
+* @brief Function for ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
 * @param argument: Not used
 * @retval None
 */
 void UIInfo(void)
 {
-	static uint32_t tick_info = 0; // ¶¨Òå¾²Ì¬±äÁ¿£¬´æ´¢½øÈë½çÃæÊ±µÄÊ±¼ä´Á
-	if (0 == tick_info) tick_info = osKernelGetTickCount(); // ¿ªÊ¼½øÈë½çÃæÊ±£¬¼ÇÂ¼Ê±¼ä´Á
+	static uint32_t tick_info = 0; // ï¿½ï¿½ï¿½å¾²Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½ï¿½
+	if (0 == tick_info) tick_info = osKernelGetTickCount(); // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Â¼Ê±ï¿½ï¿½ï¿½
 	
-	GUI_Clear();	// ÆÁÄ»ÄÚÈÝÇå¿Õ
-	GUI_DispStringHCenterAt("Ê©ÔÏÖ¥", 64, 0);	// ÆÁÄ»¾ÓÖÐÏÔÊ¾ÐÕÃû
-	GUI_DispStringHCenterAt("22041304", 64, 16);// ÆÁÄ»¾ÓÖÐÏÔÊ¾ÐÕÃû
-	GUI_DispStringHCenterAt("ÍõÐÀâù", 64, 32);	
+	GUI_Clear();	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GUI_DispStringHCenterAt("Ê©ï¿½ï¿½Ö¥", 64, 0);	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+	GUI_DispStringHCenterAt("22041304", 64, 16);// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+	GUI_DispStringHCenterAt("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 64, 32);	
 	GUI_DispStringHCenterAt("22040804", 64, 48);
-	GUI_Update();	// Ë¢ÐÂÆÁÄ»ÏÔÊ¾
+	GUI_Update();	// Ë¢ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¾
  
-	// Èç¹ûµ±Ç°Ê±¼äÒÑ¾­³¬¹ý½øÈëÊ±¼ä3Ãë
-	// ½çÃæ×´Ì¬Ìø×ªµ½Ö÷²Ëµ¥½çÃæ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½3ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½
 	if (osKernelGetTickCount() >= tick_info + 3000) {
 		GUI_Sta_Cur = GUI_MAIN;
-		tick_info = 0;	// Ê±¼ä´ÁÇåÁã£¬ÒÔ±¸ÔÙ´Î½øÈë
+		tick_info = 0;	// Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½Ô±ï¿½ï¿½Ù´Î½ï¿½ï¿½ï¿½
 	 }
 };
 
 /**
-* @brief Function for Ö÷²Ëµ¥
+* @brief Function for ï¿½ï¿½ï¿½Ëµï¿½
 * @param argument: Not used
 * @retval None
 */
 void UIPic(void)
 {
-	GUI_Clear();	// ÆÁÄ»ÄÚÈÝÇå¿Õ
-	GUI_DispStringHCenterAt("Main", 64, 0);	// ÆÁÄ»ÕýÉÏ·½¾ÓÖÐÏÔÊ¾±êÌâ
-	GUI_Update();	// Ë¢ÐÂÆÁÄ»ÏÔÊ¾
+	GUI_Clear();	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GUI_DispStringHCenterAt("Main", 64, 0);	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+	GUI_Update();	// Ë¢ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¾
 
 };
 
 /**
-* @brief Function for Ö÷²Ëµ¥
+* @brief Function for ï¿½ï¿½ï¿½Ëµï¿½
 * @param argument: Not used
 * @retval None
 */
 void UIMain(void)
 {
-	GUI_Clear();	// ÆÁÄ»ÄÚÈÝÇå¿Õ
-	GUI_DispStringHCenterAt("Main", 64, 0);	// ÆÁÄ»ÕýÉÏ·½¾ÓÖÐÏÔÊ¾±êÌâ
-	GUI_Update();	// Ë¢ÐÂÆÁÄ»ÏÔÊ¾
+	GUI_Clear();	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GUI_DispStringHCenterAt("Main", 64, 0);	// ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+	GUI_Update();	// Ë¢ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¾
 
 };
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUI²»Í¬½çÃæÏà¹ØÏÔÊ¾º¯Êý------------------------------//
+//hello im syz//
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUIï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½------------------------------//
 /* USER CODE END Application */
 

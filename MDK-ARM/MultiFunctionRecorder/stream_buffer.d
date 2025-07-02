@@ -1,14 +1,15 @@
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
-.\multifunctionrecorder\stream_buffer.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stdint.h
-.\multifunctionrecorder\stream_buffer.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\string.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-.\multifunctionrecorder\stream_buffer.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stddef.h
-.\multifunctionrecorder\stream_buffer.o: ../Core/Inc/FreeRTOSConfig.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-.\multifunctionrecorder\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h
+./multifunctionrecorder/stream_buffer.o: \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\stream_buffer.h
