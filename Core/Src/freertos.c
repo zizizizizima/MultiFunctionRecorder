@@ -32,9 +32,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-//------------------------------GUI���>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN} GUI_STATE;	 // ��ö�����ͱ�ʾUI����״̬
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUI���------------------------------//
+//------------------------------GUI���------------------------------//
+typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN,GUI_RECORDER,GUI_TIMESET,GUI_PARASET} GUI_STATE;	 
+//accept for the title and team information, there're only four : 
+//1.main(showing time and date)
+//2.recorder(recording)
+//3.timeset(...)
+//4.paraset(...)
+//------------------------------GUI���------------------------------//
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -200,56 +205,39 @@ void StartKeyTask(void *argument)
       while (ScanKey() > 0); // �ȴ������ſ�����ֹ��������
       osThreadFlagsSet(defaultTaskHandle, key); // ��Ĭ��������key֪ͨ
     }
-//    switch (key) {
-//			default:        break;
-//			//���˵�ѡ��
-//			case K1_Pin:  if (GUI_MAIN == g_sta)
-//										{
-//											if(g_sta_select < GUI_LED)	g_sta_select = GUI_LED;
-//											else {	g_sta_select--; if(g_sta_select < GUI_LED) g_sta_select = GUI_LEDPARAM_SET;}
-//										}else if(GUI_LEDPARAM_SET == g_sta)
-//										{
-//											if(g_sta_select < GUI_LEDSPEED)	g_sta_select = GUI_LEDSPEED;
-//											else {	g_sta_select--; if(g_sta_select < GUI_LEDSPEED) g_sta_select = GUI_LEDDIR;}
-//										}
-//										break;
-//			case K4_Pin:  if (GUI_MAIN == g_sta) 
-//										{	
-//											if(g_sta_select < GUI_LED)	g_sta_select = GUI_LED;
-//											else {	g_sta_select++; if(g_sta_select > GUI_LEDPARAM_SET) g_sta_select = GUI_LED;}
-//										}else if(GUI_LEDPARAM_SET == g_sta)
-//										{
-//											if(g_sta_select < GUI_LEDSPEED)	g_sta_select = GUI_LEDSPEED;
-//											else {	g_sta_select++; if(g_sta_select > GUI_LEDDIR) g_sta_select = GUI_LEDSPEED;}
-//										}
-//										break;
-//			//������ˮ�Ʋ�����ť
-//			case K2_Pin:  if(GUI_LEDSPEED == g_sta)
-//										{ 
-//											if(speed < 1)	speed = 1;
-//											speed--;
-//										}else if(GUI_LEDDIR == g_sta)
-//										{
-//											dir = 0;//���
-//										}
-//										break;
-//			case K3_Pin:	if(GUI_LEDSPEED == g_sta)
-//										{
-//											speed++;
-//											if(speed > 9)	speed = 1;
-//										}else if(GUI_LEDDIR == g_sta)
-//										{
-//											dir = 1;//��
-//										}
-//										break;
-//			//ȷ����ť
-//			case K5_Pin:  g_sta = g_sta_select;break;
-//			//���ذ�ť
-//			case K6_Pin:  if (GUI_MAIN == g_sta) g_sta = GUI_LOGO;
-//										else if(GUI_LEDDIR == g_sta)		 g_sta = GUI_LEDPARAM_SET;
-//										else if(GUI_LEDSPEED == g_sta)	 g_sta = GUI_LEDPARAM_SET;
-//										else g_sta = GUI_MAIN;
-//										break;
+    switch (key) {
+			default:        break;
+			//���˵�ѡ��
+			case K1_Pin:  if (GUI_MAIN == GUI_Sta_Cur)
+										{
+											GUI_Sta_Next = GUI_TIMESET;
+										}
+										break;
+			
+			//������ˮ�Ʋ�����ť
+			case K2_Pin:  
+										break;
+			case K3_Pin:	if(GUI_MAIN == GUI_Sta_Cur)
+										{
+											GUI_Sta_Next = GUI_RECORDER;
+										}
+										break;
+			case K4_Pin:  if (GUI_MAIN == GUI_Sta_Cur) 
+										{	
+											GUI_Sta_Next = GUI_PARASET;
+										}
+										break;
+			//ȷ����ť
+			case K5_Pin:  if(GUI_TITLE == GUI_Sta_Cur || GUI_INFO == GUI_Sta_Cur)GUI_Sta_Cur = GUI_RECORDER;
+										else if(GUI_RECORDER == GUI_Sta_Cur)
+										{
+											//!!!!!Start recording and Finish recording after the second press
+										}
+										break;
+			//���ذ�ť
+			case K6_Pin:  
+										break;
+			}
     osDelay(1);
   }
   /* USER CODE END StartKeyTask */
@@ -257,7 +245,7 @@ void StartKeyTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-//----------------------------GUI��ͬ���������ʾ����>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+//----------------------------GUI��ͬ���������ʾ����------------------------------//
 /** @brief Function for ��ʾѡ������
 * @param argument: Not used
 * @retval None
@@ -312,7 +300,7 @@ void UIInfo(void)
 void UIPic(void)
 {
 	GUI_Clear();	// ��Ļ�������
-	GUI_DispStringHCenterAt("Main", 64, 0);	// ��Ļ���Ϸ�������ʾ����
+	GUI_DispStringHCenterAt("Pic", 64, 0);	// ��Ļ���Ϸ�������ʾ����
 	GUI_Update();	// ˢ����Ļ��ʾ
 
 };
@@ -329,7 +317,20 @@ void UIMain(void)
 	GUI_Update();	// ˢ����Ļ��ʾ
 
 };
+
+/**
+* @brief Function for Recording
+* @param argument: Not used
+* @retval None
+*/
+void UIRecorder(void)
+{
+	GUI_Clear();	// ��Ļ�������
+	GUI_DispStringHCenterAt("Recording", 64, 0);	// ��Ļ���Ϸ�������ʾ����
+	GUI_Update();	// ˢ����Ļ��ʾ
+
+};
 //hello im syz//
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUI��ͬ���������ʾ����------------------------------//
+//------------------------------GUI��ͬ���������ʾ����------------------------------//
 /* USER CODE END Application */
 
