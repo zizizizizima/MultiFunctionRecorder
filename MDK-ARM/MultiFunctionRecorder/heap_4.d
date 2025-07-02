@@ -1,14 +1,13 @@
-multifunctionrecorder/heap_4.o: \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  ..\Core\Inc\FreeRTOSConfig.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+.\multifunctionrecorder\heap_4.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stdlib.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+.\multifunctionrecorder\heap_4.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stddef.h
+.\multifunctionrecorder\heap_4.o: D:\Keil\STM32\ARM\ARMCC\Bin\..\include\stdint.h
+.\multifunctionrecorder\heap_4.o: ../Core/Inc/FreeRTOSConfig.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+.\multifunctionrecorder\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

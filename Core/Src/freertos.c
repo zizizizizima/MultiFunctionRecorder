@@ -80,6 +80,7 @@ const osThreadAttr_t keyTask_attributes = {
 /* USER CODE BEGIN FunctionPrototypes */
 void UITitle(void);
 void UIInfo(void);
+void UIPic(void);
 void UIMain(void);
 /* USER CODE END FunctionPrototypes */
 
@@ -257,7 +258,7 @@ void StartKeyTask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 //----------------------------GUI不同界面相关显示函数>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
-* @brief Function for 显示选题名称（？
+/** @brief Function for 显示选题名称
 * @param argument: Not used
 * @retval None
 */
@@ -267,7 +268,7 @@ void UITitle(void)
 	if (0 == tick_title) tick_title = osKernelGetTickCount(); // 开始进入界面时，记录时间戳
 	
 	GUI_Clear();	// 屏幕内容清空
-	GUI_DispStringHCenterAt("选题名称", 64, 0);	// 屏幕正上方居中显示标题
+	GUI_DispStringHCenterAt("选题", 64, 0);	// 屏幕正上方居中显示标题
 	GUI_Update();	// 刷新屏幕显示
  
 	// 如果当前时间已经超过进入时间2秒
@@ -292,15 +293,28 @@ void UIInfo(void)
 	GUI_DispStringHCenterAt("施韵芝", 64, 0);	// 屏幕居中显示姓名
 	GUI_DispStringHCenterAt("22041304", 64, 16);// 屏幕居中显示姓名
 	GUI_DispStringHCenterAt("王欣怡", 64, 32);	
-	GUI_DispStringHCenterAt("2204xxxx", 64, 48);
+	GUI_DispStringHCenterAt("22040804", 64, 48);
 	GUI_Update();	// 刷新屏幕显示
  
 	// 如果当前时间已经超过进入时间3秒
 	// 界面状态跳转到主菜单界面
 	if (osKernelGetTickCount() >= tick_info + 3000) {
-		GUI_Sta_Cur = GUI_INFO;
+		GUI_Sta_Cur = GUI_MAIN;
 		tick_info = 0;	// 时间戳清零，以备再次进入
 	 }
+};
+
+/**
+* @brief Function for 主菜单
+* @param argument: Not used
+* @retval None
+*/
+void UIPic(void)
+{
+	GUI_Clear();	// 屏幕内容清空
+	GUI_DispStringHCenterAt("Main", 64, 0);	// 屏幕正上方居中显示标题
+	GUI_Update();	// 刷新屏幕显示
+
 };
 
 /**
