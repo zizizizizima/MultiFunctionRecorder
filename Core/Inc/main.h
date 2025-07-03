@@ -35,6 +35,10 @@ extern "C" {
 #define __GUI_H
 #include "GUI.H" 
 #endif
+#ifndef __DS18B20_H
+#define __DS18B20_H
+#include "DS_18B20.H" 
+#endif
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -45,6 +49,8 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 extern GUI_FLASH const GUI_FONT GUI_FontHZ_SimSun_16;
+extern GUI_CONST_STORAGE GUI_BITMAP bmSYZ;
+extern GUI_CONST_STORAGE GUI_BITMAP bmWXY;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -90,6 +96,8 @@ void Error_Handler(void);
 #define I2C_SCL_GPIO_Port GPIOB
 #define I2C_SDA_Pin GPIO_PIN_7
 #define I2C_SDA_GPIO_Port GPIOB
+#define DATA_Pin GPIO_PIN_0
+#define DATA_GPIO_Port GPIOE
 #define K1_Pin GPIO_PIN_1
 #define K1_GPIO_Port GPIOE
 

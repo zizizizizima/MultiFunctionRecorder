@@ -36,7 +36,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 //------------------------------GUI���------------------------------//
-typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN,GUI_RECORDER,GUI_TIMESET,GUI_PARASET} GUI_STATE;	 
+typedef enum {GUI_TITLE, GUI_INFO, GUI_PIC, GUI_MAIN,GUI_RECORDER,GUI_TIMESET,GUI_PARASET} GUI_STATE;	 
 //accept for the title and team information, there're only four : 
 //1.main(showing time and date)
 //2.recorder(recording)
@@ -62,6 +62,8 @@ GUI_STATE GUI_Sta_Cur = GUI_TITLE;// ��ǰUI����
 GUI_STATE GUI_Sta_Next = GUI_INFO; // �������UI����
 
 uint8_t Press_Flag;
+
+float Temp;
 //------------------------------GUI���------------------------------//
 //------------------------------USART-------------------
 uint8_t rx1_buf[MAX_RECV_LEN];
@@ -112,6 +114,13 @@ const osThreadAttr_t espTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for tempTask */
+osThreadId_t tempTaskHandle;
+const osThreadAttr_t tempTask_attributes = {
+  .name = "tempTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for QueueUsart1 */
 osMessageQueueId_t QueueUsart1Handle;
 const osMessageQueueAttr_t QueueUsart1_attributes = {
@@ -140,6 +149,7 @@ void StartKeyTask(void *argument);
 void StartUsartTask(void *argument);
 void StartledTask(void *argument);
 void StartESPTask(void *argument);
+void StartTempTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -194,6 +204,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of espTask */
   espTaskHandle = osThreadNew(StartESPTask, NULL, &espTask_attributes);
+
+  /* creation of tempTask */
+  tempTaskHandle = osThreadNew(StartTempTask, NULL, &tempTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -428,6 +441,31 @@ void StartESPTask(void *argument)
   /* USER CODE END StartESPTask */
 }
 
+/* USER CODE BEGIN Header_StartTempTask */
+/**
+* @brief Function implementing the tempTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTempTask */
+void StartTempTask(void *argument)
+{
+  /* USER CODE BEGIN StartTempTask */
+	uint32_t tick = 0;
+	ds18b20_init();		//init DS18B20 device
+  /* Infinite loop */
+  for(;;)
+  {
+	  uint32_t cur_tick = osKernelGetTickCount();
+	  if(cur_tick >= tick){
+		  tick = cur_tick + 1000;
+		  Temp = ds18b20_read();
+	  }
+		osDelay(1);
+  }
+  /* USER CODE END StartTempTask */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 //----------------------------GUI��ͬ���������ʾ����------------------------------//
@@ -472,7 +510,7 @@ void UIInfo(void)
 	// �����ǰʱ���Ѿ���������ʱ��3��
 	// ����״̬��ת�����˵�����
 	if (osKernelGetTickCount() >= tick_info + 3000) {
-		GUI_Sta_Cur = GUI_MAIN;
+		GUI_Sta_Cur = GUI_PIC;
 		tick_info = 0;	// ʱ������㣬�Ա��ٴν���
 	 }
 };
@@ -484,9 +522,18 @@ void UIInfo(void)
 */
 void UIPic(void)
 {
+	static uint32_t tick_info = 0; // ���徲̬�������洢�������ʱ��ʱ���
+	if (0 == tick_info) tick_info = osKernelGetTickCount(); // ��ʼ�������ʱ����¼ʱ���
+	
 	GUI_Clear();	// ��Ļ�������
-	GUI_DispStringHCenterAt("Pic", 64, 0);	// ��Ļ���Ϸ�������ʾ����
+	GUI_DrawBitmap(&bmSYZ,0,0);
+	GUI_DrawBitmap(&bmWXY,128 - bmWXY.XSize,0);	
 	GUI_Update();	// ˢ����Ļ��ʾ
+	
+	if (osKernelGetTickCount() >= tick_info + 3000) {
+		GUI_Sta_Cur = GUI_MAIN;
+		tick_info = 0;	// ʱ������㣬�Ա��ٴν���
+	}
 
 };
 

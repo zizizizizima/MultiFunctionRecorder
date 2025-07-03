@@ -1,9 +1,12 @@
---cpu=Cortex-M4.fp.sp
+--cpu Cortex-M4.fp
 ".\multifunctionrecorder\startup_stm32f407xx.o"
 ".\multifunctionrecorder\simsun_16.o"
 ".\multifunctionrecorder\main.o"
 ".\multifunctionrecorder\gpio.o"
 ".\multifunctionrecorder\freertos.o"
+".\multifunctionrecorder\dma.o"
+".\multifunctionrecorder\rtc.o"
+".\multifunctionrecorder\usart.o"
 ".\multifunctionrecorder\stm32f4xx_it.o"
 ".\multifunctionrecorder\stm32f4xx_hal_msp.o"
 ".\multifunctionrecorder\stm32f4xx_hal_timebase_tim.o"
@@ -22,6 +25,9 @@
 ".\multifunctionrecorder\stm32f4xx_hal_cortex.o"
 ".\multifunctionrecorder\stm32f4xx_hal.o"
 ".\multifunctionrecorder\stm32f4xx_hal_exti.o"
+".\multifunctionrecorder\stm32f4xx_hal_rtc.o"
+".\multifunctionrecorder\stm32f4xx_hal_rtc_ex.o"
+".\multifunctionrecorder\stm32f4xx_hal_uart.o"
 ".\multifunctionrecorder\system_stm32f4xx.o"
 ".\multifunctionrecorder\croutine.o"
 ".\multifunctionrecorder\event_groups.o"
@@ -37,13 +43,17 @@
 ".\multifunctionrecorder\guislim.o"
 ".\multifunctionrecorder\ssd1306.o"
 ".\multifunctionrecorder\ssd1306_i2c.o"
+".\multifunctionrecorder\syz.o"
+".\multifunctionrecorder\wxy.o"
 ".\multifunctionrecorder\user_diskio.o"
 ".\multifunctionrecorder\fatfs.o"
 ".\multifunctionrecorder\diskio.o"
 ".\multifunctionrecorder\ff.o"
 ".\multifunctionrecorder\ff_gen_drv.o"
 ".\multifunctionrecorder\syscall.o"
+".\multifunctionrecorder\esp8266.o"
+".\multifunctionrecorder\ds_18b20.o"
 --library_type=microlib --strict --scatter ".\MultiFunctionRecorder\MultiFunctionRecorder.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "MultiFunctionRecorder.map" -o .\MultiFunctionRecorder\MultiFunctionRecorder.axf
