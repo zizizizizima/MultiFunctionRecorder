@@ -52,7 +52,13 @@ void MemManage_Handler(void);
 void BusFault_Handler(void);
 void UsageFault_Handler(void);
 void DebugMon_Handler(void);
+void RTC_WKUP_IRQHandler(void);
+void USART1_IRQHandler(void);
+void RTC_Alarm_IRQHandler(void);
 void TIM7_IRQHandler(void);
+void DMA2_Stream1_IRQHandler(void);
+void DMA2_Stream6_IRQHandler(void);
+void USART6_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
