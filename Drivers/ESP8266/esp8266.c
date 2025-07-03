@@ -26,17 +26,17 @@ void SendATCmd(char *cmd, int waitms)
 void FetchServer(void)
 {
 	osDelay(500);
-	printf("ESP01重启\n");
+	printf("ESP01 reset\n");
 	SendATCmd("AT+RST\r\n",500);
-	printf("关闭模块回显\n");
+	printf("close info returning\n");
 	SendATCmd("ATE0\r\n",500);
-	printf("查看模块版本信息…\n");
+	printf("module version info...\n");
 	SendATCmd("AT+GMR\r\n",500);
-	printf("开启AP模式\n");
+	printf("STA mode\n");
 	SendATCmd("AT+CWMODE=1\r\n",500); //if AT+CWMODE=2:AP，=3:AP+STA
-	printf("连接到WiFi:thzjw…");
+	printf("Connect to WiFi:thzjw...");
 	SendATCmd("AT+CWJAP=\"thzjw\",\"ldfsyzlsy\"\r\n",10000);//连接WIFI
-	printf("连接到北京时间");
+	printf("Connect to Beijing Timing...");
 	SendATCmd("AT+CIPSTART=\"TCP\",\"www.beijing-time.org\",80\r\n",10000); //连接北京时间服务器
 	SendATCmd("AT+CIPSEND=5\r\n",500);			
 	SendATCmd("GET\r\n",500);

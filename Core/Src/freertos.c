@@ -31,6 +31,8 @@
 #include <string.h>
 #include "gpio.h"
 #include "usart.h"
+#include "esp8266.h"
+#include "rtc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +54,7 @@ typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN,GUI_RECORDER,GUI_TIMESET,GUI_PARASET
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define MAX_RECV_LEN 512	//uart rev queue size(512*8bit)
+#define MAX_RECV_LEN 512	//uart rev queue size
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -95,7 +97,7 @@ const osThreadAttr_t keyTask_attributes = {
 osThreadId_t usartTaskHandle;
 const osThreadAttr_t usartTask_attributes = {
   .name = "usartTask",
-  .stack_size = 128 * 4,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for ledTask */
@@ -109,7 +111,7 @@ const osThreadAttr_t ledTask_attributes = {
 osThreadId_t espTaskHandle;
 const osThreadAttr_t espTask_attributes = {
   .name = "espTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for QueueUsart1 */
@@ -167,10 +169,10 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of QueueUsart1 */
-  QueueUsart1Handle = osMessageQueueNew (512, sizeof(uint8_t), &QueueUsart1_attributes);
+  QueueUsart1Handle = osMessageQueueNew (4, 512, &QueueUsart1_attributes);
 
   /* creation of QueueUsart6 */
-  QueueUsart6Handle = osMessageQueueNew (512, sizeof(uint8_t), &QueueUsart6_attributes);
+  QueueUsart6Handle = osMessageQueueNew (4,512, &QueueUsart6_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -268,10 +270,10 @@ void StartKeyTask(void *argument)
   for(;;)
   {
 		 uint8_t key = ScanKey(); // ɨ�谴������
-    if (key > 0) { // �а�������
-      while (ScanKey() > 0); // �ȴ������ſ�����ֹ��������
-      osThreadFlagsSet(defaultTaskHandle, key); // ��Ĭ��������key֪ͨ
-    }
+//    if (key > 0) { // �а�������
+//      while (ScanKey() > 0); // �ȴ������ſ�����ֹ��������
+//      osThreadFlagsSet(defaultTaskHandle, key); // ��Ĭ��������key֪ͨ
+//    }
     switch (key) {
 			default:        break;
 			//���˵�ѡ��
@@ -387,7 +389,7 @@ void StartUsartTask(void *argument)
 				}
 			}
 		}
-    osDelay(1);
+    osDelay(10);
   }
   /* USER CODE END StartUsartTask */
 }
@@ -420,10 +422,22 @@ void StartledTask(void *argument)
 void StartESPTask(void *argument)
 {
   /* USER CODE BEGIN StartESPTask */
+	//FetchServer();
+	uint32_t tick = 0; // 时间戳变量
+  uint8_t bdot = 0; // 秒闪变量
+	char buf[20]="    ";
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+		if (osKernelGetTickCount() >= tick) {
+					tick = osKernelGetTickCount() + 500; // 半秒读取一次RTC时间
+					ReadRTCDateTime(); // 读取RTC日期时间
+					bdot = !bdot; // 秒闪控制
+			}
+		sprintf(buf, "%02d%s%02d", RTC_Hour, bdot ? "." : "", RTC_Min); // 格式化字符串
+		printf("%s",buf);
+		//printf("hello");
+    osDelay(10);
   }
   /* USER CODE END StartESPTask */
 }

@@ -22,19 +22,19 @@
 
 /* USER CODE BEGIN 0 */
 #include <stdio.h>
-#ifndef __GNUC__		// Èç¹û²»Ê¹ÓÃARM CC V6±àÒëÆ÷
+#ifndef __GNUC__		// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ARM CC V6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#pragma import(__use_no_semihosting)  // ²»Ê¹ÓÃ°ëÖ÷»úº¯Êý
+#pragma import(__use_no_semihosting)  // ï¿½ï¿½Ê¹ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-struct __FILE{int handle;};	// ±ê×¼¿âÐèÒªµÄÖ§³Öº¯Êý
+struct __FILE{int handle;};	// ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ö§ï¿½Öºï¿½ï¿½ï¿½
 
-void _sys_exit(int x) {x = x;}	// ±ÜÃâÊ¹ÓÃ°ëÖ÷»úÄ£Ê½
+void _sys_exit(int x) {x = x;}	// ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 
 #endif
 
 
 
-FILE __stdout; 			// ARM CC V6°æ±¾ÐèÒªÌí¼ÓÖ§³Ö
+FILE __stdout; 			// ARM CC V6ï¿½æ±¾ï¿½ï¿½Òªï¿½ï¿½ï¿½Ö§ï¿½ï¿½
 
 int fputc(int ch, FILE *f) {
 

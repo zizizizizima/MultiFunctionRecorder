@@ -21,7 +21,13 @@
 #include "rtc.h"
 
 /* USER CODE BEGIN 0 */
-
+uint16_t RTC_Year = 2025; // 年
+uint8_t RTC_Mon = 7; // 月
+uint8_t RTC_Dat = 3; // 日
+uint8_t RTC_Hour = 10; // 时
+uint8_t RTC_Min = 49; // 分
+uint8_t RTC_Sec = 30; // 秒
+uint8_t RTC_PSec = 0;      // 百分秒
 /* USER CODE END 0 */
 
 RTC_HandleTypeDef hrtc;
@@ -57,7 +63,10 @@ void MX_RTC_Init(void)
   }
 
   /* USER CODE BEGIN Check_RTC_BKUP */
-
+	if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) == 0x5050)
+	 // 是否第一次配置
+	return; // 如果不是第一次配置，直接返回，后续初始化动作不需要执行了
+	HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, 0x5050);
   /* USER CODE END Check_RTC_BKUP */
 
   /** Initialize RTC and set the Time and Date
@@ -106,7 +115,8 @@ void MX_RTC_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN RTC_Init 2 */
-
+	SetRTCTime(RTC_Hour, RTC_Min, RTC_Sec); // 设置日历时间为默认初始时间
+	SetRTCDate(RTC_Year, RTC_Mon, RTC_Dat);
   /* USER CODE END RTC_Init 2 */
 
 }
@@ -124,7 +134,7 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* rtcHandle)
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-    PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+    PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
     {
       Error_Handler();
@@ -165,5 +175,50 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+/**
+* @brief Function for Reading RTC date and time
+* @param argument: Not used
+* @retval None
+*/
+ HAL_StatusTypeDef ReadRTCDateTime(void) { // 读取RTC日期时间
+    RTC_TimeTypeDef sTime = {0};
+    RTC_DateTypeDef sDate = {0};
+    if (HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN) == HAL_OK) {
+    if (HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN) == HAL_OK) {
+        RTC_Year = 2000 + sDate.Year;        RTC_Mon = sDate.Month;
+        RTC_Dat = sDate.Date;        RTC_Hour = sTime.Hours;
+        RTC_Min = sTime.Minutes;        RTC_Sec = sTime.Seconds;
+        // 百分秒计算，0.01秒误差
+        RTC_PSec = (255 - sTime.SubSeconds) * 99 / 255; 
+        return HAL_OK;
+    }
+  }
+  return HAL_ERROR;
+ }
 
+ /**
+* @brief Function for Setting RTC date 
+* @param argument: Not used
+* @retval None
+*/
+ HAL_StatusTypeDef SetRTCDate(int year, int mon, int date) { // 设置年月日
+    RTC_DateTypeDef sDate = {0};
+    sDate.Year = year % 2000;  sDate.Month = mon;  sDate.Date = date;
+    if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) == HAL_OK)
+        return HAL_OK;
+    return HAL_ERROR;
+ }
+ 
+ /**
+* @brief Function for Setting RTC time
+* @param argument: Not used
+* @retval None
+*/
+ HAL_StatusTypeDef SetRTCTime(int hour, int min, int sec) { // 设置时分秒
+    RTC_TimeTypeDef sTime = {0};
+    sTime.Hours = hour;  sTime.Minutes = min;  sTime.Seconds = sec;
+    if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) == HAL_OK)
+        return HAL_OK;
+    return HAL_ERROR;
+ }
 /* USER CODE END 1 */

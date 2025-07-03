@@ -35,13 +35,21 @@ extern "C" {
 extern RTC_HandleTypeDef hrtc;
 
 /* USER CODE BEGIN Private defines */
-
+ extern uint16_t RTC_Year;
+ extern uint8_t RTC_Mon;
+ extern uint8_t RTC_Dat;
+ extern uint8_t RTC_Hour;
+ extern uint8_t RTC_Min;
+ extern uint8_t RTC_Sec;
+ extern uint8_t RTC_PSec;  
 /* USER CODE END Private defines */
 
 void MX_RTC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+HAL_StatusTypeDef ReadRTCDateTime(void);
+HAL_StatusTypeDef SetRTCTime(int hour, int min, int sec);
+HAL_StatusTypeDef SetRTCDate(int year, int mon, int date);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
