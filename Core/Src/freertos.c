@@ -90,6 +90,8 @@ void UIInfo(void);
 void UIPic(void);
 void UIMain(void);
 void UIRecorder(void);
+void UITimeSet(void);
+void UIParaSet(void);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -185,6 +187,8 @@ void StartGUITask(void *argument)
 			case GUI_INFO: UIInfo();	break;
 			case GUI_MAIN: UIMain(); 	break;
 			case GUI_RECORDER: UIRecorder(); break;
+			case GUI_TIMESET: UITimeSet(); break;
+			case GUI_PARASET: UIParaSet(); break;
 		}
     osDelay(10);
   }
@@ -214,7 +218,7 @@ void StartKeyTask(void *argument)
 			//���˵�ѡ��
 			case K1_Pin:  if (GUI_MAIN == GUI_Sta_Cur)
 										{
-											GUI_Sta_Next = GUI_TIMESET;
+											GUI_Sta_Cur = GUI_TIMESET;
 										}
 										break;
 			
@@ -223,12 +227,12 @@ void StartKeyTask(void *argument)
 										break;
 			case K3_Pin:	if(GUI_MAIN == GUI_Sta_Cur)
 										{
-											GUI_Sta_Next = GUI_RECORDER;
+											GUI_Sta_Cur = GUI_RECORDER;
 										}
 										break;
 			case K4_Pin:  if (GUI_MAIN == GUI_Sta_Cur) 
 										{	
-											GUI_Sta_Next = GUI_PARASET;
+											GUI_Sta_Cur = GUI_PARASET;
 										}
 										break;
 			//ȷ����ť
@@ -339,7 +343,33 @@ void UIRecorder(void)
 	GUI_Update();	// ˢ����Ļ��ʾ
 
 };
-//hello im syz//
+
+/**
+* @brief Function for Time setting
+* @param argument: Not used
+* @retval None
+*/
+void UITimeSet(void)
+{
+	GUI_Clear();	// ��Ļ�������
+	GUI_DispStringHCenterAt("Timeset", 64, 0);	// ��Ļ���Ϸ�������ʾ����
+	GUI_Update();	// ˢ����Ļ��ʾ
+
+};
+
+/**
+* @brief Function for Time setting
+* @param argument: Not used
+* @retval None
+*/
+void UIParaSet(void)
+{
+	GUI_Clear();	// ��Ļ�������
+	GUI_DispStringHCenterAt("Paraset", 64, 0);	// ��Ļ���Ϸ�������ʾ����
+	GUI_Update();	// ˢ����Ļ��ʾ
+
+};
+
 //------------------------------GUI��ͬ���������ʾ����------------------------------//
 /* USER CODE END Application */
 
