@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\MultiFunctionRecorder\MultiFunctionRecorder.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\MultiFunctionRecorder\MultiFunctionRecorder.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Wed Jul  2 22:56:37 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu Jul  3 10:11:21 2025
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -504,20 +504,20 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSD1306_DrawFilledRectangle
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawBitLine1BPP
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
-<LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<BR>[Address Reference Count : 2]<UL><LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
 </UL>
 <P><STRONG><a name="[65]"></a>GUIPROP_GetCharDistX</STRONG> (Thumb, 116 bytes, Stack size 0 bytes, guislim.o(.text.GUIPROP_GetCharDistX))
-<BR>[Address Reference Count : 2]<UL><LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
-<LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<BR>[Address Reference Count : 2]<UL><LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
 </UL>
 <P><STRONG><a name="[66]"></a>GUIPROP_GetFontInfo</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, guislim.o(.text.GUIPROP_GetFontInfo))
-<BR>[Address Reference Count : 2]<UL><LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
-<LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<BR>[Address Reference Count : 2]<UL><LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
 </UL>
 <P><STRONG><a name="[67]"></a>GUIPROP_IsInFont</STRONG> (Thumb, 94 bytes, Stack size 0 bytes, guislim.o(.text.GUIPROP_IsInFont))
-<BR>[Address Reference Count : 2]<UL><LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
-<LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<BR>[Address Reference Count : 2]<UL><LI> simsun_16.o(.rodata.GUI_FontHZ_SimSun_16)
+<LI> f08_ascii.o(.rodata.GUI_Font8_ASCII)
 </UL>
 <P><STRONG><a name="[79]"></a>GUI_Clear</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, guislim.o(.text.GUI_Clear))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = GUI_Clear &rArr; SSD1306_DrawFilledRectangle &rArr; SSD1306_DrawLine
@@ -580,18 +580,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[9f]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text.HAL_GPIO_WritePin))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_Stop
+<BR><BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetLeds
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_Stop
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_Ack
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_SendByte
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_Start
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetLeds
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
 <P><STRONG><a name="[81]"></a>HAL_GetTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal.o(.text.HAL_GetTick))
-<BR><BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
+<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
 
 <P><STRONG><a name="[99]"></a>HAL_IncTick</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_hal.o(.text.HAL_IncTick))
@@ -601,9 +601,9 @@ Global Symbols
 <P><STRONG><a name="[82]"></a>HAL_Init</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, stm32f4xx_hal.o(.text.HAL_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = HAL_Init &rArr; HAL_InitTick &rArr; HAL_TIM_Base_Init &rArr; TIM_Base_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriorityGrouping
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_MspInit
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriorityGrouping
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -858,8 +858,8 @@ Global Symbols
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_SendByte
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_IIC_Start
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSD1306_init
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Update
+<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Update
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SSD1306_init
 </UL>
 
 <P><STRONG><a name="[7d]"></a>SSD1306_init</STRONG> (Thumb, 1134 bytes, Stack size 8 bytes, ssd1306.o(.text.SSD1306_init))
@@ -907,20 +907,20 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.text.MX_FREERTOS_Init)
 </UL>
-<P><STRONG><a name="[5f]"></a>StartGUITask</STRONG> (Thumb, 254 bytes, Stack size 0 bytes, freertos.o(.text.StartGUITask))
+<P><STRONG><a name="[5f]"></a>StartGUITask</STRONG> (Thumb, 272 bytes, Stack size 0 bytes, freertos.o(.text.StartGUITask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = StartGUITask &rArr; GUI_Clear &rArr; SSD1306_DrawFilledRectangle &rArr; SSD1306_DrawLine
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Update
-<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_DispStringHCenterAt
+<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetTickCount
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Clear
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetTickCount
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Update
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_DispStringHCenterAt
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_SetFont
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GUI_Init
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.text.MX_FREERTOS_Init)
 </UL>
-<P><STRONG><a name="[60]"></a>StartKeyTask</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, freertos.o(.text.StartKeyTask))
+<P><STRONG><a name="[60]"></a>StartKeyTask</STRONG> (Thumb, 190 bytes, Stack size 0 bytes, freertos.o(.text.StartKeyTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = StartKeyTask &rArr; ScanKey &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsSet
@@ -1337,8 +1337,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTimerCreateTimerTask
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadNew
+<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadNew
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTimerCreateTimerTask
 </UL>
 
 <P><STRONG><a name="[b9]"></a>xTaskGenericNotify</STRONG> (Thumb, 282 bytes, Stack size 24 bytes, tasks.o(.text.xTaskGenericNotify))
@@ -1370,8 +1370,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b5]"></a>xTaskGetTickCount</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, tasks.o(.text.xTaskGetTickCount))
-<BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTimerTask
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetTickCount
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelGetTickCount
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTimerTask
 </UL>
 
 <P><STRONG><a name="[b6]"></a>xTaskGetTickCountFromISR</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, tasks.o(.text.xTaskGetTickCountFromISR))

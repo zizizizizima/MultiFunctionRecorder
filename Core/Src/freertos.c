@@ -57,6 +57,8 @@ typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN,GUI_RECORDER,GUI_TIMESET,GUI_PARASET
 //------------------------------GUI���------------------------------//
 GUI_STATE GUI_Sta_Cur = GUI_TITLE;// ��ǰUI����
 GUI_STATE GUI_Sta_Next = GUI_INFO; // �������UI����
+
+uint8_t Press_Flag;
 //------------------------------GUI���------------------------------//
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -87,6 +89,7 @@ void UITitle(void);
 void UIInfo(void);
 void UIPic(void);
 void UIMain(void);
+void UIRecorder(void);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -181,6 +184,7 @@ void StartGUITask(void *argument)
 			case GUI_TITLE: UITitle(); break;
 			case GUI_INFO: UIInfo();	break;
 			case GUI_MAIN: UIMain(); 	break;
+			case GUI_RECORDER: UIRecorder(); break;
 		}
     osDelay(10);
   }
@@ -228,10 +232,15 @@ void StartKeyTask(void *argument)
 										}
 										break;
 			//ȷ����ť
-			case K5_Pin:  if(GUI_TITLE == GUI_Sta_Cur || GUI_INFO == GUI_Sta_Cur)GUI_Sta_Cur = GUI_RECORDER;
-										else if(GUI_RECORDER == GUI_Sta_Cur)
+			case K5_Pin:  if(GUI_TITLE == GUI_Sta_Cur || GUI_INFO == GUI_Sta_Cur) GUI_Sta_Cur = GUI_RECORDER;
+										else if(GUI_RECORDER == GUI_Sta_Cur && Press_Flag == 0)
 										{
-											//!!!!!Start recording and Finish recording after the second press
+											Press_Flag = 1;
+											//!!!!!Start recording 
+										}else if(GUI_RECORDER == GUI_Sta_Cur && Press_Flag == 1)
+										{
+											Press_Flag = 0;
+											//!!!!!Finish recording after the second press
 										}
 										break;
 			//���ذ�ť
@@ -256,7 +265,7 @@ void UITitle(void)
 	if (0 == tick_title) tick_title = osKernelGetTickCount(); // ��ʼ�������ʱ����¼ʱ���
 	
 	GUI_Clear();	// ��Ļ�������
-	GUI_DispStringHCenterAt("ѡ��", 64, 0);	// ��Ļ���Ϸ�������ʾ����
+	GUI_DispStringHCenterAt("MFR", 64, 0);	// ��Ļ���Ϸ�������ʾ����
 	GUI_Update();	// ˢ����Ļ��ʾ
  
 	// �����ǰʱ���Ѿ���������ʱ��2��
@@ -278,9 +287,9 @@ void UIInfo(void)
 	if (0 == tick_info) tick_info = osKernelGetTickCount(); // ��ʼ�������ʱ����¼ʱ���
 	
 	GUI_Clear();	// ��Ļ�������
-	GUI_DispStringHCenterAt("ʩ��֥", 64, 0);	// ��Ļ������ʾ����
+	GUI_DispStringHCenterAt("SYZ", 64, 0);	// ��Ļ������ʾ����
 	GUI_DispStringHCenterAt("22041304", 64, 16);// ��Ļ������ʾ����
-	GUI_DispStringHCenterAt("������", 64, 32);	
+	GUI_DispStringHCenterAt("WXY", 64, 32);	
 	GUI_DispStringHCenterAt("22040804", 64, 48);
 	GUI_Update();	// ˢ����Ļ��ʾ
  
