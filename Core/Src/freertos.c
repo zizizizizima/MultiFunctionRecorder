@@ -27,7 +27,10 @@
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "gpio.h"
+#include "usart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +52,7 @@ typedef enum {GUI_TITLE, GUI_INFO, GUI_MAIN,GUI_RECORDER,GUI_TIMESET,GUI_PARASET
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define MAX_RECV_LEN 512	//uart rev queue size(512*8bit)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -60,6 +63,12 @@ GUI_STATE GUI_Sta_Next = GUI_INFO; // �������UI����
 
 uint8_t Press_Flag;
 //------------------------------GUI���------------------------------//
+//------------------------------USART-------------------
+uint8_t rx1_buf[MAX_RECV_LEN];
+uint8_t rx6_buf[MAX_RECV_LEN];
+//------------------------------USART-------------------
+
+int cid = -1;//客户端ID号
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -82,6 +91,37 @@ const osThreadAttr_t keyTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for usartTask */
+osThreadId_t usartTaskHandle;
+const osThreadAttr_t usartTask_attributes = {
+  .name = "usartTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for ledTask */
+osThreadId_t ledTaskHandle;
+const osThreadAttr_t ledTask_attributes = {
+  .name = "ledTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for espTask */
+osThreadId_t espTaskHandle;
+const osThreadAttr_t espTask_attributes = {
+  .name = "espTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for QueueUsart1 */
+osMessageQueueId_t QueueUsart1Handle;
+const osMessageQueueAttr_t QueueUsart1_attributes = {
+  .name = "QueueUsart1"
+};
+/* Definitions for QueueUsart6 */
+osMessageQueueId_t QueueUsart6Handle;
+const osMessageQueueAttr_t QueueUsart6_attributes = {
+  .name = "QueueUsart6"
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -97,6 +137,9 @@ void UIParaSet(void);
 void StartDefaultTask(void *argument);
 void StartGUITask(void *argument);
 void StartKeyTask(void *argument);
+void StartUsartTask(void *argument);
+void StartledTask(void *argument);
+void StartESPTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -122,6 +165,13 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of QueueUsart1 */
+  QueueUsart1Handle = osMessageQueueNew (512, sizeof(uint8_t), &QueueUsart1_attributes);
+
+  /* creation of QueueUsart6 */
+  QueueUsart6Handle = osMessageQueueNew (512, sizeof(uint8_t), &QueueUsart6_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -135,6 +185,15 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of keyTask */
   keyTaskHandle = osThreadNew(StartKeyTask, NULL, &keyTask_attributes);
+
+  /* creation of usartTask */
+  usartTaskHandle = osThreadNew(StartUsartTask, NULL, &usartTask_attributes);
+
+  /* creation of ledTask */
+  ledTaskHandle = osThreadNew(StartledTask, NULL, &ledTask_attributes);
+
+  /* creation of espTask */
+  espTaskHandle = osThreadNew(StartESPTask, NULL, &espTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -256,6 +315,119 @@ void StartKeyTask(void *argument)
   /* USER CODE END StartKeyTask */
 }
 
+/* USER CODE BEGIN Header_StartUsartTask */
+/**
+* @brief Function implementing the usartTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartUsartTask */
+void StartUsartTask(void *argument)
+{
+  /* USER CODE BEGIN StartUsartTask */
+	HAL_UARTEx_ReceiveToIdle_IT(&huart1,rx1_buf,sizeof(rx1_buf));
+	HAL_UARTEx_ReceiveToIdle_IT(&huart6,rx6_buf,sizeof(rx6_buf));
+	uint8_t dat[MAX_RECV_LEN];	//临时数组
+  /* Infinite loop */
+  for(;;)
+  {
+		//uart1 receiving data and processing
+		if(osMessageQueueGet(QueueUsart1Handle,dat,NULL,10)==osOK)
+		{
+			printf("UART1:%s",dat);	//串口1打印回显
+			HAL_UART_Transmit(&huart6,dat,strlen((char *)dat),0xFFFF);	//转发串口6（？
+			//是给开发者提供了在串口助手里的调试接口
+		}
+		
+		//串口6接收数据处理
+		if(osMessageQueueGet(QueueUsart6Handle,dat,NULL,10)==osOK)
+		{
+			printf("UART6:%s",dat);	//串口1打印
+			char *str = (char *)dat;
+			if(strstr(str,"CONNECT") > str)	cid = atoi(str);	//如果有客户端连接进来，取ID号
+			if(strstr(str,"CLOSED") > str)	cid = -1;					//如果有客户端连接断开，关闭ID号	
+			
+			//时间对比
+			char *p = strstr(str,"Disp:");
+			if(p > str) //找到了
+			{
+//				strncpy(g_segBuf,p+1,20);	//跳过前五个，最多20个字符
+//				g_segBuf[19] = '\0';
+				int idx = 0;
+				for(char *dat = p + 5; *dat && idx < 19; ++dat)
+				{
+					if((*dat >= '0' && *dat <= '9')	||
+						 (*dat >= 'a' && *dat <= 'f') ||
+						 (*dat >= 'A' && *dat <= 'F'))
+					{
+						//
+					}
+				}
+				//
+			}
+			
+			//时间显示
+			
+			char *p_time = strstr(str,"GMT");
+			if(p_time >= str)
+			{
+				int idx = 0;
+				for(char *dat = p_time - 6; *dat && idx < 19; ++dat)
+				{
+					if(idx <= 3)
+					{
+						if((*dat >= '0' && *dat <= '9'))
+						{
+							//g_segBuf2[idx++] = *dat;
+						}
+					}else
+					{
+						//g_segBuf2[idx++] = '\0';
+					}
+				}
+			}
+		}
+    osDelay(1);
+  }
+  /* USER CODE END StartUsartTask */
+}
+
+/* USER CODE BEGIN Header_StartledTask */
+/**
+* @brief Function implementing the ledTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartledTask */
+void StartledTask(void *argument)
+{
+  /* USER CODE BEGIN StartledTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartledTask */
+}
+
+/* USER CODE BEGIN Header_StartESPTask */
+/**
+* @brief Function implementing the espTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartESPTask */
+void StartESPTask(void *argument)
+{
+  /* USER CODE BEGIN StartESPTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartESPTask */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 //----------------------------GUI��ͬ���������ʾ����------------------------------//
@@ -371,5 +543,25 @@ void UIParaSet(void)
 };
 
 //------------------------------GUI��ͬ���������ʾ����------------------------------//
+
+//------------------------------USART-----------------------------
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,uint16_t Size)
+{
+	if(huart == &huart1)
+	{
+		rx1_buf[Size] = 0;	//字符串结束符
+		osMessageQueuePut(QueueUsart1Handle,rx1_buf,NULL,0);
+		__HAL_UNLOCK(huart);
+		HAL_UARTEx_ReceiveToIdle_IT(&huart1,rx1_buf,sizeof(rx1_buf));
+	}
+	if(huart == &huart6)
+	{
+		rx6_buf[Size] = 0;	//字符串结束符
+		osMessageQueuePut(QueueUsart6Handle,rx6_buf,NULL,0);
+		__HAL_UNLOCK(huart);
+		HAL_UARTEx_ReceiveToIdle_IT(&huart6,rx6_buf,sizeof(rx6_buf));
+	}
+}
+//------------------------------USART-----------------------------
 /* USER CODE END Application */
 
